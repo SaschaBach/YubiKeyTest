@@ -1,0 +1,61 @@
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using Yubico.YubiKey; // Necessary for the YubiKey definition
+using Yubico.YubiKey.Cryptography;
+using Yubico.YubiKey.Piv; // Use the PIV functionality of the SDK
+
+public static class Program
+{
+    public static void Main()
+    {
+        // The SDK may return zero, one, or more YubiKeys. If there
+        // was more than one, let's simply use the first.
+        Console.WriteLine("Look for YubiKey Devise");
+
+        IYubiKeyDevice yubiKey = YubiKeyDevice.FindAll().First();
+        
+        Console.WriteLine(string.Format("Found {0}", yubiKey.SerialNumber));      
+        
+        // Open a sesion to the PIV application on the YubiKey that
+        // we selected in the previous step.
+        using (PivSession piv = new PivSession(yubiKey))
+        {
+            piv.KeyCollector = (KeyEntryData keyEntryData) => {return true;};
+
+            //PivSession.ImportCertificate(byte, System.Security.Cryptography.X509Certificates.X509Certificate2);
+            piv.AuthenticateManagementKey(true);
+
+            // Die Methode überschreibt jedesmal den privaten Key auf dem YubiKey
+            var publicKey = piv.GenerateKeyPair(
+                PivSlot.CardAuthentication, // SlotNumber
+                PivAlgorithm.Rsa2048, // Algo
+                PivPinPolicy.Never, // Pin Policy
+                PivTouchPolicy.Never // Touch Policy
+                );
+
+            Console.WriteLine(string.Format("New public Key", publicKey));     
+
+            var stringToSign = "Signiere mich";
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(stringToSign);
+            
+            // Konfig Elemente
+            int keySizeInBits = PivAlgorithm.Rsa2048.KeySizeBits();
+            int digestAlgorithm = RsaFormat.Sha256;
+            HashAlgorithm digester = CryptographyProviders.Sha256Creator(); 
+            
+            // Daten vorbereiten
+            byte[] digest = new byte[digester.HashSize / 8];
+            _ = digester.TransformFinalBlock(plainTextBytes, 0, plainTextBytes.Length);
+            Array.Copy(digester.Hash, 0, digest, 0, digest.Length);
+
+           var dataToSign = RsaFormat.FormatPkcs1Pss(digest, digestAlgorithm, keySizeInBits);
+           
+           // signieren
+           var signature = piv.Sign(PivSlot.CardAuthentication, dataToSign);
+           
+           var encryptedData = Convert.ToBase64String(signature);
+           Console.WriteLine("Encrypted data: " + encryptedData); 
+        }
+    }
+}

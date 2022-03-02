@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "nGnECVCsWtPXtOH1SsNFymcmXHIqM91Xryl1bgoqWa7epg5n37gM1LEYlHERKBvTkHgPB1AJQgub9gvvlKSziA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sasch\\code\\YubiKeyTest\\YubiKeyTest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.bcl.hashcode\\1.0.0\\microsoft.bcl.hashcode.1.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\yubico.core\\1.2.0\\yubico.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\yubico.dotnetpolyfills\\1.2.0\\yubico.dotnetpolyfills.1.2.0.nupkg.sha512",
+    "C:\\Users\\sasch\\.nuget\\packages\\yubico.yubikey\\1.2.0\\yubico.yubikey.1.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}
